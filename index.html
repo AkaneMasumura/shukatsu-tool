@@ -90,13 +90,13 @@
         .cal-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; border: 1px solid rgba(0,0,0,0.05); cursor: pointer; transition: transform 0.1s; }
         .cal-dot:hover { transform: scale(1.3); }
 
-        /* ちょこんと表示されるミニポップアップ */
+        /* どんな画面でも絶対にズレないポップアップ設定 */
         .cal-popup {
             display: none; position: absolute; background: #ffffff; border: 1px solid #ffb3c6;
             padding: 8px 12px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            z-index: 999; font-size: 0.75rem; width: 160px; color: #4a4a4a; line-height: 1.4;
+            z-index: 9999; font-size: 0.75rem; width: 160px; color: #4a4a4a; line-height: 1.4;
         }
-       .cal-popup::after {
+        .cal-popup::after {
             content: ""; position: absolute; top: 100%; left: 50%;
             transform: translateX(-50%); border-width: 6px; border-style: solid;
             border-color: #ffffff transparent transparent transparent;
@@ -191,7 +191,6 @@
                     </div>
                 </h2>
                 <div class="calendar-grid" id="calendarGrid"></div>
-                <!-- ちょこんとポップアップ -->
                 <div id="calendarPopup" class="cal-popup">
                     <span class="cal-popup-close" onclick="closeCalendarPopup()">×</span>
                     <div id="calendarPopupContent"></div>
@@ -220,7 +219,6 @@
                     <input type="text" id="mypageId" placeholder="ID">
                 </div>
                 
-                <!-- ES期限（日時選択改善版） -->
                 <div class="form-group-inline">
                     <label for="esDeadlineDate">ES提出期限</label>
                     <input type="date" id="esDeadlineDate">
@@ -246,7 +244,6 @@
                     </select>
                 </div>
 
-                <!-- 次回日程（日時選択改善版） -->
                 <div class="form-group-inline">
                     <label for="interviewDateDate">次回日程 日時</label>
                     <input type="date" id="interviewDateDate">
@@ -310,7 +307,7 @@
     </div>
 
     <script>
-        // 【最重要】ここにGoogle Apps Scriptで発行したウェブアプリのURLを貼り付けてください！
+        // 【最重要】ここにGoogleのウェブアプリURLを貼り付けてください！
         const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw1hUDrBMOv10GgSa6OMYIalyv9-nzR07BFEtoV47Wvcj0Md6Hlh08qbqQiazPidh0fIw/exec";
 
         let currentCalendarDate = new Date();
@@ -355,10 +352,10 @@
             const d = document.getElementById(dateId).value;
             if (!d) return "";
             const hasTime = document.getElementById(hasTimeId).checked;
-            if (!hasTime) return d; // 時間指定なし（日付のみ YYYY-MM-DD）
+            if (!hasTime) return d;
             const h = document.getElementById(hourId).value;
             const m = document.getElementById(minId).value;
-            return `${d} ${h}:${m}`; // 日時あり（YYYY-MM-DD HH:mm）
+            return `${d} ${h}:${m}`;
         }
 
         function parseDateTimeString(str) {
@@ -421,7 +418,7 @@
             })
             .catch(err => {
                 console.error(err);
-                alert("通信エラーが発生しました。設定を見直してください。");
+                alert("通信エラーが発生しました。");
                 updateSyncStatus("❌ 接続エラー", "#e74c3c");
             })
             .finally(() => {
@@ -592,7 +589,6 @@
                             </div>
                         </td>
                     `;
-                    // 初期値の時間セレクトを合わせる
                     if(esObj.hasTime){
                         document.getElementById(`inline_esHour_${idx}`).value = esObj.hour;
                         document.getElementById(`inline_esMin_${idx}`).value = esObj.min;
@@ -734,7 +730,7 @@
                     const cleanStr = comp.interviewDate.includes(" ") ? comp.interviewDate.replace(/-/g, "/") : comp.interviewDate.replace(/-/g, "/") + " 00:00";
                     const intDate = new Date(cleanStr);
                     if (intDate >= now && intDate <= sevenDaysLater) {
-                        const typeStr = comp.nextDateType ? `[${comp.nextDateType}]` : '予定';
+                        const typeStr = comp.nextDateType ? comp.nextDateType : '予定';
                         tasks.push({
                             type: 'INTERVIEW', date: intDate, html: `<strong>【${escapeHtml(typeStr)}】</strong>${escapeHtml(comp.name)} - ${comp.interviewDate}`,
                             borderColor: '#ffd43b', bgColor: '#fffdf0'
@@ -762,7 +758,8 @@
             renderCalendar();
         }
 
-       function showCalendarPopup(e, info) {
+        // どんな画面サイズ・ズームでも絶対にズレない精密ポップアップ関数
+        function showCalendarPopup(e, info) {
             e.stopPropagation();
             const popup = document.getElementById('calendarPopup');
             const content = document.getElementById('calendarPopupContent');
@@ -770,20 +767,23 @@
             
             popup.style.display = 'block';
             
-            const rect = e.target.getBoundingClientRect();
+            // カレンダー全体の親要素（相対配置の基準）を取得
+            const card = popup.offsetParent;
+            const cardRect = card.getBoundingClientRect();
+            const dotRect = e.target.getBoundingClientRect();
             
-            // まるの真上にきれいに乗るように位置を細かく計算
-            const topPosition = rect.top + window.scrollY - popup.offsetHeight - 8;
-            const leftPosition = rect.left + window.scrollX - (popup.offsetWidth / 2) + (rect.width / 2);
+            // スクロールやズームに左右されない、親要素カード内での正確な引き算位置を計算
+            const topPosition = dotRect.top - cardRect.top - popup.offsetHeight - 8;
+            const leftPosition = dotRect.left - cardRect.left - (popup.offsetWidth / 2) + (dotRect.width / 2);
             
             popup.style.top = `${topPosition}px`;
             popup.style.left = `${leftPosition}px`;
         }
+
         function closeCalendarPopup() {
             document.getElementById('calendarPopup').style.display = 'none';
         }
 
-        // カレンダー外を押したときにポップアップを閉じる
         document.addEventListener('click', () => { closeCalendarPopup(); });
 
         function renderCalendar() {
@@ -823,7 +823,6 @@
                 dotsContainer.className = 'calendar-dots';
                 let dayEvents = [];
 
-                // フォーマット一致用文字列作成
                 const yyyy = currentDate.getFullYear();
                 const mm = String(currentDate.getMonth() + 1).padStart(2, '0');
                 const dd = String(currentDate.getDate()).padStart(2, '0');
