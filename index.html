@@ -1,3 +1,17 @@
+
+
+
+
+```
+3. この日本語を消して、**今使っているGoogleのURL（末尾が `/exec` のもの）**を貼り付けます。
+4. GitHubの `index.html` の編集画面（鉛筆マーク）を開き、中の古いコードを一度すべて削除して、この書き換えた最新コードを丸ごと貼り付けます。
+5. 右上の緑色の **[Commit changes...]** ボタンを2回押して保存します！
+
+---
+
+### 📄 コピーする最新のHTMLコード
+
+```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -6,10 +20,25 @@
     <title>就活スケジュール管理ツール</title>
     <style>
         :root {
-            --bg-color: #f8f9fa;
-            --text-color: #333;
-            --border-color: #dee2e6;
-            --primary-color: #4a90e2;
+            --bg-color: #fcfcfc;
+            --text-color: #4a4a4a;
+            --border-color: #f1f3f5;
+            --primary-color: #ffb3c6;
+            
+            /* パステルカラー定義 */
+            --color-white: #ffffff;
+            --color-pink: #fff0f3;
+            --color-yellow: #fffdf0;
+            --color-green: #f0fff4;
+            --color-purple: #f8f0ff;
+            --color-gray: #f5f5f5;
+
+            --dot-pink: #ff85a2;
+            --dot-yellow: #ffd43b;
+            --dot-green: #51cf66;
+            --dot-purple: #cc5de8;
+            --dot-gray: #868e96;
+            --dot-white: #ced4da;
         }
         body {
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
@@ -22,27 +51,27 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 2px solid var(--primary-color);
+            border-bottom: 2px dashed var(--primary-color);
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
-        h1 { color: #2c3e50; margin: 0; font-size: 1.8rem; }
+        h1 { color: #4a4a4a; margin: 0; font-size: 1.6rem; font-weight: bold; }
         .header-controls { display: flex; gap: 10px; align-items: center; }
         .name-setting-btn {
-            background-color: #f1f3f5; border: 1px solid #ccc; padding: 4px 10px;
-            border-radius: 4px; font-size: 0.8rem; cursor: pointer; color: #555;
+            background-color: #ffffff; border: 1px solid #ffb3c6; padding: 4px 10px;
+            border-radius: 20px; font-size: 0.8rem; cursor: pointer; color: #ff85a2; font-weight: bold;
         }
-        .name-setting-btn:hover { background-color: #e9ecef; }
-        .sync-status { font-size: 0.85rem; color: #27ae60; font-weight: bold; }
+        .name-setting-btn:hover { background-color: #fff0f3; }
+        .sync-status { font-size: 0.85rem; color: #51cf66; font-weight: bold; }
         
-        h2 { font-size: 1.1rem; margin-top: 0; color: #34495e; display: flex; justify-content: space-between; align-items: center; }
+        h2 { font-size: 1.05rem; margin-top: 0; color: #4a4a4a; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--primary-color); padding-left: 8px; }
         .top-container { display: grid; grid-template-columns: 1fr 380px; gap: 20px; margin-bottom: 20px; }
         @media (max-width: 900px) { .top-container { grid-template-columns: 1fr; } }
-        .dashboard-card { background: #fff; border-radius: 8px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid var(--border-color); position: relative; }
+        .dashboard-card { background: #fff; border-radius: 12px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); border: 1px solid #eedfdf; position: relative; }
         
         .greeting-message {
             background: linear-gradient(135deg, #fff0f6 0%, #ffebf0 100%);
-            border: 2px dashed #ffb3c6;
+            border: 1px solid #ffb3c6;
             border-radius: 12px;
             padding: 10px 15px;
             margin-bottom: 15px;
@@ -50,7 +79,7 @@
             font-weight: bold;
             color: #d9486b;
             text-align: center;
-            box-shadow: 0 2px 6px rgba(255, 179, 198, 0.2);
+            box-shadow: 0 2px 6px rgba(255, 179, 198, 0.15);
             animation: bounce 2s infinite alternate;
         }
         @keyframes bounce {
@@ -59,79 +88,90 @@
         }
 
         .todo-list { list-style: none; padding: 0; margin: 0; max-height: 260px; overflow-y: auto; }
-        .todo-item { padding: 8px 12px; margin-bottom: 6px; background: #fff5f5; border-left: 4px solid #e74c3c; font-size: 0.85rem; border-radius: 0 4px 4px 0; }
-        .todo-empty { color: #7f8c8d; font-style: italic; font-size: 0.9rem; }
+        .todo-item { padding: 8px 12px; margin-bottom: 6px; background: #fff0f3; border-left: 4px solid #ff85a2; font-size: 0.85rem; border-radius: 0 8px 8px 0; }
+        .todo-empty { color: #999; font-style: italic; font-size: 0.9rem; }
 
-        .calendar-controls button { background: none; border: 1px solid #ccc; padding: 2px 8px; cursor: pointer; border-radius: 4px; font-weight: bold; }
-        .calendar-controls button:hover { background: #f0f0f0; }
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); }
-        .calendar-header-cell { background: #e9ecef; text-align: center; font-size: 0.75rem; font-weight: bold; padding: 4px 0; }
-        .calendar-cell { background: #fff; min-height: 48px; padding: 4px; font-size: 0.75rem; display: flex; flex-direction: column; justify-content: space-between; }
-        .calendar-cell.other-month { background: #f8f9fa; color: #ccc; }
-        .calendar-day-num { font-weight: bold; color: #666; }
-        .calendar-cell.today { background: #e8f4fd; }
-        .calendar-cell.today .calendar-day-num { color: var(--primary-color); }
+        .calendar-controls button { background: #fff; border: 1px solid #ffb3c6; padding: 2px 8px; cursor: pointer; border-radius: 12px; color: #ff85a2; }
+        .calendar-controls button:hover { background: #fff0f3; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: #eee5e5; border: 1px solid #eee5e5; border-radius: 6px; overflow: hidden; }
+        .calendar-header-cell { background: #fff0f3; text-align: center; font-size: 0.75rem; font-weight: bold; padding: 6px 0; color: #ff85a2; }
+        .calendar-cell { background: #fff; min-height: 52px; padding: 4px; font-size: 0.75rem; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
+        .calendar-cell.other-month { background: #fafafa; color: #ccc; }
+        .calendar-day-num { font-weight: bold; color: #777; }
+        .calendar-cell.today { background: #fff0f3; }
+        .calendar-cell.today .calendar-day-num { color: #ff85a2; }
         .calendar-dots { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 4px; }
-        .cal-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; border: 1px solid rgba(0,0,0,0.15); cursor: pointer; transition: transform 0.1s; }
+        .cal-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; border: 1px solid rgba(0,0,0,0.05); cursor: pointer; transition: transform 0.1s; }
         .cal-dot:hover { transform: scale(1.3); }
 
-        .form-section { background: #fff; padding: 12px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid var(--border-color); }
-        .form-inline-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end; }
-        .form-group-inline { display: flex; flex-direction: column; flex: 1; min-width: 110px; }
-        .form-group-inline.wide { flex: 1.5; min-width: 150px; }
-        .form-group-inline.narrow { flex: 0.5; min-width: 80px; }
-        .form-group-inline label { font-size: 0.75rem; font-weight: bold; margin-bottom: 3px; color: #555; white-space: nowrap; }
-        .form-group-inline input, .form-group-inline select { padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.85rem; height: 32px; box-sizing: border-box; width: 100%; }
-        .btn-inline-container { display: flex; gap: 5px; height: 32px; }
-        .btn-s { height: 32px; padding: 0 12px; background-color: var(--primary-color); color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.85rem; white-space: nowrap; }
-        .btn-s:hover { opacity: 0.9; }
+        /* ちょこんと表示されるミニポップアップ */
+        .cal-popup {
+            display: none; position: absolute; background: #ffffff; border: 1px solid #ffb3c6;
+            padding: 8px 12px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 999; font-size: 0.75rem; width: 160px; color: #4a4a4a; line-height: 1.4;
+        }
+        .cal-popup::after {
+            content: ""; position: absolute; bottom: 100%; left: 15px;
+            border-width: 6px; border-style: solid; border-color: transparent transparent #ffffff transparent;
+        }
+        .cal-popup-close { float: right; cursor: pointer; color: #ff85a2; font-weight: bold; margin-left: 5px; }
 
-        .table-container { background: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); overflow-x: auto; border: 1px solid var(--border-color); margin-bottom: 30px; }
-        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; min-width: 1100px; }
-        th, td { padding: 10px 8px; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
-        th { background-color: #f1f3f5; color: #495057; font-weight: bold; }
+        .form-section { background: #fff; padding: 15px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); margin-bottom: 20px; border: 1px solid #eedfdf; }
+        .form-inline-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; }
+        .form-group-inline { display: flex; flex-direction: column; flex: 1; min-width: 120px; }
+        .form-group-inline.wide { flex: 1.5; min-width: 160px; }
+        .form-group-inline.narrow { flex: 0.5; min-width: 90px; }
+        .form-group-inline label { font-size: 0.75rem; font-weight: bold; margin-bottom: 4px; color: #666; white-space: nowrap; }
+        .form-group-inline input, .form-group-inline select { padding: 6px; border: 1px solid #ffb3c6; border-radius: 6px; font-size: 0.85rem; height: 32px; box-sizing: border-box; width: 100%; }
+        .form-group-inline input:focus, .form-group-inline select:focus { outline: none; border-color: #ff85a2; }
         
-        .inline-input, .inline-select { width: 100%; padding: 4px; border: 1px solid #4a90e2; border-radius: 4px; box-sizing: border-box; font-size: 0.8rem; }
-        .inline-edit-row { background-color: #f0f7ff !important; }
-        .inline-status-container { display: flex; flex-direction: column; gap: 4px; }
+        .time-toggle-label { font-size: 0.7rem; color: #ff85a2; cursor: pointer; display: flex; align-items: center; gap: 2px; margin-top: 2px; }
+        .time-select-container { display: flex; gap: 2px; align-items: center; width: 100%; box-sizing: border-box; }
+        .time-select-container select { padding: 2px; height: 32px; font-size: 0.85rem; text-align: center; }
 
-        .status-gray { background-color: #e9ecef !important; }
-        .status-lightblue { background-color: #e3f2fd !important; }
-        .status-orange { background-color: #fff3cd !important; }
-        .status-yellow { background-color: #fffde7 !important; }
-        .status-pink { background-color: #fce4ec !important; }
-        .status-purple { background-color: #f3e5f5 !important; }
-        .status-red { background-color: #ffebee !important; }
-        .status-blue { background-color: #e1f5fe !important; }
-        .status-green { background-color: #e8f5e9 !important; }
-        .status-darkgray { background-color: #f5f5f5 !important; color: #9e9e9e; }
+        .btn-inline-container { display: flex; gap: 5px; height: 32px; }
+        .btn-s { height: 32px; padding: 0 16px; background-color: #ffb3c6; color: white; border: none; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 0.85rem; white-space: nowrap; }
+        .btn-s:hover { background-color: #ff85a2; }
 
-        .dot-gray { background-color: #adb5bd; }
-        .dot-lightblue { background-color: #29b6f6; }
-        .dot-orange { background-color: #ffa726; }
-        .dot-yellow { background-color: #fdd835; }
-        .dot-pink { background-color: #f06292; }
-        .dot-purple { background-color: #ba68c8; }
-        .dot-red { background-color: #ef5350; }
-        .dot-blue { background-color: #29b6f6; }
-        .dot-green { background-color: #66bb6a; }
-        .dot-darkgray { background-color: #757575; }
+        .table-container { background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); overflow-x: auto; border: 1px solid #eedfdf; margin-bottom: 30px; }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; min-width: 1100px; }
+        th, td { padding: 12px 10px; border-bottom: 1px solid #eedfdf; vertical-align: middle; }
+        th { background-color: #fff0f3; color: #ff85a2; font-weight: bold; }
+        
+        .inline-input, .inline-select { width: 100%; padding: 4px; border: 1px solid #ffb3c6; border-radius: 4px; box-sizing: border-box; font-size: 0.8rem; }
+        .inline-edit-row { background-color: #fff5f7 !important; }
 
-        .company-link { font-weight: bold; color: #1a0dab; text-decoration: none; }
+        /* パステル背景クラス */
+        .status-white { background-color: var(--color-white) !important; }
+        .status-pink { background-color: var(--color-pink) !important; }
+        .status-yellow { background-color: var(--color-yellow) !important; }
+        .status-green { background-color: var(--color-green) !important; }
+        .status-purple { background-color: var(--color-purple) !important; }
+        .status-gray { background-color: var(--color-gray) !important; color: #888; }
+
+        /* カレンダーのドット色クラス */
+        .dot-white { background-color: var(--dot-white); }
+        .dot-pink { background-color: var(--dot-pink); }
+        .dot-yellow { background-color: var(--dot-yellow); }
+        .dot-green { background-color: var(--dot-green); }
+        .dot-purple { background-color: var(--dot-purple); }
+        .dot-gray { background-color: var(--dot-gray); }
+
+        .company-link { font-weight: bold; color: #ff85a2; text-decoration: none; }
         .company-link:hover { text-decoration: underline; }
-        .url-link { font-size: 0.8rem; color: var(--primary-color); text-decoration: none; display: inline-block; max-width: 110px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+        .url-link { font-size: 0.8rem; color: #999; text-decoration: none; display: inline-block; max-width: 110px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
         .es-cell { display: flex; align-items: center; gap: 5px; white-space: nowrap; }
-        .es-checkbox { width: 15px; height: 15px; cursor: pointer; }
-        .es-done-text { color: #2e7d32; font-weight: bold; font-size: 0.75rem; }
+        .es-checkbox { width: 16px; height: 16px; cursor: pointer; accent-color: #ff85a2; }
+        .es-done-text { color: #51cf66; font-weight: bold; font-size: 0.75rem; }
         .actions-btn-group { display: flex; gap: 4px; }
-        .action-btn { padding: 3px 6px; font-size: 0.75rem; border-radius: 3px; cursor: pointer; border: 1px solid #ccc; background: #fff; }
-        .action-btn:hover { background: #f0f0f0; }
-        .other-status-text { font-size: 0.75rem; display: block; color: #666; margin-top: 2px; }
+        .action-btn { padding: 4px 8px; font-size: 0.75rem; border-radius: 12px; cursor: pointer; border: 1px solid #ffb3c6; background: #fff; color: #ff85a2; }
+        .action-btn:hover { background: #fff0f3; }
+        .other-status-text { font-size: 0.75rem; display: block; color: #888; margin-top: 2px; }
 
         #loadingMask {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(255,255,255,0.9); display: flex; justify-content: center;
-            align-items: center; z-index: 10000; font-size: 1.2rem; font-weight: bold; color: #333;
+            align-items: center; z-index: 10000; font-size: 1.1rem; font-weight: bold; color: #ff85a2;
         }
     </style>
 </head>
@@ -140,7 +180,7 @@
     <div id="loadingMask">データをGoogleから読み込んでいます...</div>
 
     <div class="title-area">
-        <h1 id="mainTitle">就活スケジュール管理ツール</h1>
+        <h1 id="mainTitle">就活</h1>
         <div class="header-controls">
             <span id="syncStatus" class="sync-status">● クラウド同期中</span>
             <button class="name-setting-btn" onclick="changeUserName()">名前を変更する</button>
@@ -164,6 +204,11 @@
                     </div>
                 </h2>
                 <div class="calendar-grid" id="calendarGrid"></div>
+                <!-- ちょこんとポップアップ -->
+                <div id="calendarPopup" class="cal-popup">
+                    <span class="cal-popup-close" onclick="closeCalendarPopup()">×</span>
+                    <div id="calendarPopupContent"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -187,10 +232,18 @@
                     <label for="mypageId">マイページID</label>
                     <input type="text" id="mypageId" placeholder="ID">
                 </div>
+                
+                <!-- ES期限（日時選択改善版） -->
                 <div class="form-group-inline">
-                    <label for="esDeadline">ES提出期限</label>
-                    <input type="datetime-local" id="esDeadline">
+                    <label for="esDeadlineDate">ES提出期限</label>
+                    <input type="date" id="esDeadlineDate">
+                    <label class="time-toggle-label"><input type="checkbox" id="esHasTime" onchange="toggleTimeInput('es')"> 時間を指定する</label>
+                    <div id="esTimeContainer" class="time-select-container" style="display:none; margin-top:4px;">
+                        <select id="esHour"></select>時
+                        <select id="esMin"></select>分
+                    </div>
                 </div>
+
                 <div class="form-group-inline narrow">
                     <label for="nextDateType">次回日程の種類</label>
                     <select id="nextDateType">
@@ -205,10 +258,18 @@
                         <option value="その他">その他</option>
                     </select>
                 </div>
+
+                <!-- 次回日程（日時選択改善版） -->
                 <div class="form-group-inline">
-                    <label for="interviewDate">次回日程 日時</label>
-                    <input type="datetime-local" id="interviewDate">
+                    <label for="interviewDateDate">次回日程 日時</label>
+                    <input type="date" id="interviewDateDate">
+                    <label class="time-toggle-label"><input type="checkbox" id="interviewHasTime" onchange="toggleTimeInput('interview')"> 時間を指定する</label>
+                    <div id="interviewTimeContainer" class="time-select-container" style="display:none; margin-top:4px;">
+                        <select id="interviewHour"></select>時
+                        <select id="interviewMin"></select>分
+                    </div>
                 </div>
+
                 <div class="form-group-inline narrow">
                     <label for="selectionStatus">選考ステータス</label>
                     <select id="selectionStatus" onchange="toggleOtherStatusInput('selectionStatus', 'otherStatusGroup')">
@@ -220,6 +281,7 @@
                         <option value="GD">GD</option>
                         <option value="一次面接">一次面接</option>
                         <option value="二次面接">二次面接</option>
+                        <option value="最終面接">最終面接</option>
                         <option value="インターン">インターン</option>
                         <option value="結果待ち">結果待ち</option>
                         <option value="内定">内定</option>
@@ -229,7 +291,7 @@
                 </div>
                 <div class="form-group-inline narrow" id="otherStatusGroup" style="display: none;">
                     <label for="otherStatusName">その他ステータス</label>
-                    <input type="text" id="otherStatusName" placeholder="最終面接など">
+                    <input type="text" id="otherStatusName" placeholder="独自名など">
                 </div>
                 <div class="form-group-inline wide">
                     <label for="memo">メモ</label>
@@ -270,10 +332,62 @@
         let editingIndex = null;
 
         window.addEventListener('DOMContentLoaded', () => {
+            initTimeSelects();
             updateGreetingMessage();
             loadFromGoogleCloud();
             setInterval(updateGreetingMessage, 60000);
         });
+
+        function initTimeSelects() {
+            const hours = ['esHour', 'interviewHour'];
+            const mins = ['esMin', 'interviewMin'];
+            hours.forEach(id => {
+                const el = document.getElementById(id);
+                for(let i=0; i<24; i++) {
+                    let opt = document.createElement('option');
+                    opt.value = String(i).padStart(2,'0'); opt.textContent = String(i).padStart(2,'0');
+                    el.appendChild(opt);
+                }
+            });
+            mins.forEach(id => {
+                const el = document.getElementById(id);
+                for(let i=0; i<60; i+=5) {
+                    let opt = document.createElement('option');
+                    opt.value = String(i).padStart(2,'0'); opt.textContent = String(i).padStart(2,'0');
+                    el.appendChild(opt);
+                }
+            });
+        }
+
+        function toggleTimeInput(prefix) {
+            const hasTime = document.getElementById(`${prefix}HasTime`).checked;
+            document.getElementById(`${prefix}TimeContainer`).style.display = hasTime ? 'flex' : 'none';
+        }
+
+        function buildDateTimeString(dateId, hasTimeId, hourId, minId) {
+            const d = document.getElementById(dateId).value;
+            if (!d) return "";
+            const hasTime = document.getElementById(hasTimeId).checked;
+            if (!hasTime) return d; // 時間指定なし（日付のみ YYYY-MM-DD）
+            const h = document.getElementById(hourId).value;
+            const m = document.getElementById(minId).value;
+            return `${d} ${h}:${m}`; // 日時あり（YYYY-MM-DD HH:mm）
+        }
+
+        function parseDateTimeString(str) {
+            if (!str) return { date: "", hasTime: false, hour: "00", min: "00" };
+            if (str.includes(" ")) {
+                const parts = str.split(" ");
+                const tParts = parts[1].split(":");
+                return { date: parts[0], hasTime: true, hour: tParts[0], min: tParts[1] };
+            }
+            return { date: str, hasTime: false, hour: "00", min: "00" };
+        }
+
+        function formatDisplayDate(str) {
+            if(!str) return "-";
+            return str; 
+        }
 
         function updateGreetingMessage() {
             const now = new Date();
@@ -309,7 +423,7 @@
                     userName = res.data.userName || "";
                     updateTitle();
                     renderApp();
-                    updateSyncStatus("● クラウド同期済み", "#27ae60");
+                    updateSyncStatus("● クラウド同期済み", "#51cf66");
                     if (!userName) {
                         setTimeout(() => { askUserName(); }, 300);
                     }
@@ -342,7 +456,7 @@
             .then(res => res.json())
             .then(res => {
                 if (res.success) {
-                    updateSyncStatus("● 自動保存完了", "#27ae60");
+                    updateSyncStatus("● 自動保存完了", "#51cf66");
                 } else {
                     updateSyncStatus("❌ 自動保存失敗", "#e74c3c");
                 }
@@ -374,11 +488,11 @@
         function updateTitle() {
             const titleEl = document.getElementById('mainTitle');
             if (userName) {
-                titleEl.textContent = `${userName}の就活スケジュール管理ツール`;
-                document.title = `${userName}の就活スケジュール管理ツール`;
+                titleEl.textContent = `${userName}の就活`;
+                document.title = `${userName}の就活`;
             } else {
-                titleEl.textContent = "就活スケジュール管理ツール";
-                document.title = "就活スケジュール管理ツール";
+                titleEl.textContent = "就活";
+                document.title = "就活";
             }
         }
 
@@ -416,6 +530,13 @@
 
                 if (editingIndex === idx) {
                     tr.className = "inline-edit-row";
+                    const esObj = parseDateTimeString(comp.esDeadline);
+                    const intObj = parseDateTimeString(comp.interviewDate);
+
+                    let hOpts = "", mOpts = "";
+                    for(let i=0;i<24;i++) { let v=String(i).padStart(2,'0'); hOpts+=`<option value="${v}">${v}</option>`; }
+                    for(let i=0;i<60;i+=5) { let v=String(i).padStart(2,'0'); mOpts+=`<option value="${v}">${v}</option>`; }
+
                     tr.innerHTML = `
                         <td><input type="text" id="inline_name_${idx}" class="inline-input" value="${escapeHtml(comp.name)}" required></td>
                         <td><input type="url" id="inline_hp_${idx}" class="inline-input" value="${escapeHtml(comp.hp)}" placeholder="https://..."></td>
@@ -424,9 +545,14 @@
                             <input type="text" id="inline_mypageId_${idx}" class="inline-input" style="margin-top:4px;" value="${escapeHtml(comp.mypageId)}" placeholder="ID">
                         </td>
                         <td>
-                            <div class="es-cell">
-                                <input type="checkbox" id="inline_esDone_${idx}" class="es-checkbox" ${comp.esDone ? 'checked' : ''}>
-                                <input type="datetime-local" id="inline_esDeadline_${idx}" class="inline-input" value="${comp.esDeadline || ''}">
+                            <div class="es-cell" style="flex-direction:column; align-items:flex-start;">
+                                <label><input type="checkbox" id="inline_esDone_${idx}" class="es-checkbox" ${comp.esDone ? 'checked' : ''}> 提出済</label>
+                                <input type="date" id="inline_esDate_${idx}" class="inline-input" style="margin-top:4px;" value="${esObj.date}">
+                                <label style="font-size:0.7rem; color:#ff85a2;"><input type="checkbox" id="inline_esHasTime_${idx}" ${esObj.hasTime?'checked':''} onchange="document.getElementById('inline_esTime_${idx}').style.display=this.checked?'flex':'none'"> 時間指定</label>
+                                <div id="inline_esTime_${idx}" style="display:${esObj.hasTime?'flex':'none'}; gap:2px; align-items:center; margin-top:2px;">
+                                    <select id="inline_esHour_${idx}" class="inline-select">${hOpts}</select>:
+                                    <select id="inline_esMin_${idx}" class="inline-select">${mOpts}</select>
+                                </div>
                             </div>
                         </td>
                         <td>
@@ -441,7 +567,12 @@
                                 <option value="インターン" ${comp.nextDateType==='インターン'?'selected':''}>インターン</option>
                                 <option value="その他" ${comp.nextDateType==='その他'?'selected':''}>その他</option>
                             </select>
-                            <input type="datetime-local" id="inline_interviewDate_${idx}" class="inline-input" style="margin-top:4px;" value="${comp.interviewDate || ''}">
+                            <input type="date" id="inline_intDate_${idx}" class="inline-input" style="margin-top:4px;" value="${intObj.date}">
+                            <label style="font-size:0.7rem; color:#ff85a2;"><input type="checkbox" id="inline_intHasTime_${idx}" ${intObj.hasTime?'checked':''} onchange="document.getElementById('inline_intTime_${idx}').style.display=this.checked?'flex':'none'"> 時間指定</label>
+                            <div id="inline_intTime_${idx}" style="display:${intObj.hasTime?'flex':'none'}; gap:2px; align-items:center; margin-top:2px;">
+                                <select id="inline_intHour_${idx}" class="inline-select">${hOpts}</select>:
+                                <select id="inline_intMin_${idx}" class="inline-select">${mOpts}</select>
+                            </div>
                         </td>
                         <td>
                             <div class="inline-status-container">
@@ -454,6 +585,7 @@
                                     <option value="GD" ${comp.status==='GD'?'selected':''}>GD</option>
                                     <option value="一次面接" ${comp.status==='一次面接'?'selected':''}>一次面接</option>
                                     <option value="二次面接" ${comp.status==='二次面接'?'selected':''}>二次面接</option>
+                                    <option value="最終面接" ${comp.status==='最終面接'?'selected':''}>最終面接</option>
                                     <option value="インターン" ${comp.status==='インターン'?'selected':''}>インターン</option>
                                     <option value="結果待ち" ${comp.status==='結果待ち'?'selected':''}>結果待ち</option>
                                     <option value="内定" ${comp.status==='内定'?'selected':''}>内定</option>
@@ -461,25 +593,34 @@
                                     <option value="その他" ${comp.status==='その他'?'selected':''}>その他</option>
                                 </select>
                                 <div id="inline_otherGroup_${idx}" style="display: ${comp.status === 'その他' ? 'block' : 'none'};">
-                                    <input type="text" id="inline_otherStatusName_${idx}" class="inline-input" value="${escapeHtml(comp.otherStatus || '')}" placeholder="ステータス名">
+                                    <input type="text" id="inline_otherStatusName_${idx}" class="inline-input" value="${escapeHtml(comp.otherStatus || '')}" placeholder="独自ステータス">
                                 </div>
                             </div>
                         </td>
                         <td><input type="text" id="inline_memo_${idx}" class="inline-input" value="${escapeHtml(comp.memo || '')}"></td>
                         <td>
                             <div class="actions-btn-group">
-                                <button class="action-btn" style="background:#27ae60;color:white;border:none;" onclick="saveInlineEdit(${idx})">保存</button>
+                                <button class="action-btn" style="background:#ff85a2;color:white;border:none;" onclick="saveInlineEdit(${idx})">保存</button>
                                 <button class="action-btn" onclick="cancelInlineEdit()">取消</button>
                             </div>
                         </td>
                     `;
+                    // 初期値の時間セレクトを合わせる
+                    if(esObj.hasTime){
+                        document.getElementById(`inline_esHour_${idx}`).value = esObj.hour;
+                        document.getElementById(`inline_esMin_${idx}`).value = esObj.min;
+                    }
+                    if(intObj.hasTime){
+                        document.getElementById(`inline_intHour_${idx}`).value = intObj.hour;
+                        document.getElementById(`inline_intMin_${idx}`).value = intObj.min;
+                    }
                 } else {
                     tr.className = getStatusColorClass(comp.status);
 
-                    const esDisplay = (comp.esDeadline && !comp.esDone) ? comp.esDeadline.replace('T', ' ') : '-';
+                    const esDisplay = (comp.esDeadline && !comp.esDone) ? formatDisplayDate(comp.esDeadline) : '-';
                     const nextDateDisplay = (comp.nextDateType && comp.interviewDate) 
-                        ? `<strong>[${escapeHtml(comp.nextDateType)}]</strong><br>${comp.interviewDate.replace('T', ' ')}` 
-                        : (comp.interviewDate ? comp.interviewDate.replace('T', ' ') : '-');
+                        ? `<strong>[${escapeHtml(comp.nextDateType)}]</strong><br>${formatDisplayDate(comp.interviewDate)}` 
+                        : (comp.interviewDate ? formatDisplayDate(comp.interviewDate) : '-');
 
                     const nameTd = comp.hp ? `<a href="${comp.hp}" target="_blank" class="company-link">${escapeHtml(comp.name)}</a>` : escapeHtml(comp.name);
                     const mypageTd = comp.mypageUrl ? `<a href="${comp.mypageUrl}" target="_blank" class="url-link" title="${comp.mypageUrl}">${escapeHtml(comp.mypageUrl)}</a>` : '-';
@@ -498,7 +639,7 @@
                                 <input type="checkbox" class="es-checkbox" ${comp.esDone ? 'checked' : ''} onchange="toggleEsDone(${idx}, this.checked)">
                                 <div>
                                     <span>${esDisplay}</span><br>
-                                    ${comp.esDone ? '<span class="es-done-text">提出済</span>' : '<span style="color:#e67e22;font-size:0.75rem;">未提出</span>'}
+                                    ${comp.esDone ? '<span class="es-done-text">提出済</span>' : '<span style="color:#ff85a2;font-size:0.75rem;">未提出</span>'}
                                 </div>
                             </div>
                         </td>
@@ -508,7 +649,7 @@
                         <td>
                             <div class="actions-btn-group">
                                 <button class="action-btn" onclick="startInlineEdit(${idx})">編集</button>
-                                <button class="action-btn" style="background:#e74c3c;color:white;border:none;" onclick="deleteCompany(${idx})">削除</button>
+                                <button class="action-btn" style="background:#dee2e6;color:#495057;border:none;" onclick="deleteCompany(${idx})">削除</button>
                             </div>
                         </td>
                     `;
@@ -541,15 +682,29 @@
                 statusVal = 'ES提出済み';
             }
 
+            const esDateVal = document.getElementById(`inline_esDate_${index}`).value;
+            let finalEsStr = "";
+            if(esDateVal){
+                const hasTime = document.getElementById(`inline_esHasTime_${index}`).checked;
+                finalEsStr = hasTime ? `${esDateVal} ${document.getElementById(`inline_esHour_${index}`).value}:${document.getElementById(`inline_esMin_${index}`).value}` : esDateVal;
+            }
+
+            const intDateVal = document.getElementById(`inline_intDate_${index}`).value;
+            let finalIntStr = "";
+            if(intDateVal){
+                const hasTime = document.getElementById(`inline_intHasTime_${index}`).checked;
+                finalIntStr = hasTime ? `${intDateVal} ${document.getElementById(`inline_intHour_${index}`).value}:${document.getElementById(`inline_intMin_${index}`).value}` : intDateVal;
+            }
+
             companies[index] = {
                 name: newName,
                 hp: document.getElementById(`inline_hp_${index}`).value.trim(),
                 mypageUrl: document.getElementById(`inline_mypageUrl_${index}`).value.trim(),
                 mypageId: document.getElementById(`inline_mypageId_${index}`).value.trim(),
-                esDeadline: document.getElementById(`inline_esDeadline_${index}`).value,
+                esDeadline: finalEsStr,
                 esDone: isEsDone,
                 nextDateType: document.getElementById(`inline_nextDateType_${index}`).value,
-                interviewDate: document.getElementById(`inline_interviewDate_${index}`).value,
+                interviewDate: finalIntStr,
                 status: statusVal,
                 otherStatus: document.getElementById(`inline_otherStatusName_${index}`).value.trim(),
                 memo: document.getElementById(`inline_memo_${index}`).value.trim()
@@ -579,21 +734,23 @@
 
             companies.forEach(comp => {
                 if (comp.esDeadline && !comp.esDone) {
-                    const esDate = new Date(comp.esDeadline);
+                    const cleanStr = comp.esDeadline.includes(" ") ? comp.esDeadline.replace(/-/g, "/") : comp.esDeadline.replace(/-/g, "/") + " 00:00";
+                    const esDate = new Date(cleanStr);
                     if (esDate >= now && esDate <= sevenDaysLater) {
                         tasks.push({
-                            type: 'ES', date: esDate, html: `<strong>【ES期限】</strong>${escapeHtml(comp.name)} - ${comp.esDeadline.replace('T', ' ')}`,
-                            borderColor: '#e74c3c', bgColor: '#fff5f5'
+                            type: 'ES', date: esDate, html: `<strong>【ES期限】</strong>${escapeHtml(comp.name)} - ${comp.esDeadline}`,
+                            borderColor: '#ff85a2', bgColor: '#fff0f3'
                         });
                     }
                 }
                 if (comp.interviewDate) {
-                    const intDate = new Date(comp.interviewDate);
+                    const cleanStr = comp.interviewDate.includes(" ") ? comp.interviewDate.replace(/-/g, "/") : comp.interviewDate.replace(/-/g, "/") + " 00:00";
+                    const intDate = new Date(cleanStr);
                     if (intDate >= now && intDate <= sevenDaysLater) {
                         const typeStr = comp.nextDateType ? `[${comp.nextDateType}]` : '予定';
                         tasks.push({
-                            type: 'INTERVIEW', date: intDate, html: `<strong>【${escapeHtml(typeStr)}】</strong>${escapeHtml(comp.name)} - ${comp.interviewDate.replace('T', ' ')}`,
-                            borderColor: '#4a90e2', bgColor: '#f0f7ff'
+                            type: 'INTERVIEW', date: intDate, html: `<strong>【${escapeHtml(typeStr)}】</strong>${escapeHtml(comp.name)} - ${comp.interviewDate}`,
+                            borderColor: '#ffd43b', bgColor: '#fffdf0'
                         });
                     }
                 }
@@ -614,12 +771,29 @@
 
         function changeMonth(offset) {
             currentCalendarDate.setMonth(currentCalendarDate.getMonth() + offset);
+            closeCalendarPopup();
             renderCalendar();
         }
 
-        function showCalendarDetail(info) {
-            alert(`【本日の予定】\n-----------------------\n${info}`);
+        function showCalendarPopup(e, info) {
+            e.stopPropagation();
+            const popup = document.getElementById('calendarPopup');
+            const content = document.getElementById('calendarPopupContent');
+            content.innerHTML = info.replace(/\n/g, '<br>');
+            
+            // 押されたドットの絶対座標を取得して、すぐ横に表示する
+            const rect = e.target.getBoundingClientRect();
+            popup.style.display = 'block';
+            popup.style.top = `${rect.top + window.scrollY + 15}px`;
+            popup.style.left = `${rect.left + window.scrollX - 10}px`;
         }
+
+        function closeCalendarPopup() {
+            document.getElementById('calendarPopup').style.display = 'none';
+        }
+
+        // カレンダー外を押したときにポップアップを閉じる
+        document.addEventListener('click', () => { closeCalendarPopup(); });
 
         function renderCalendar() {
             const title = document.getElementById('calendarTitle');
@@ -658,16 +832,20 @@
                 dotsContainer.className = 'calendar-dots';
                 let dayEvents = [];
 
+                // フォーマット一致用文字列作成
+                const yyyy = currentDate.getFullYear();
+                const mm = String(currentDate.getMonth() + 1).padStart(2, '0');
+                const dd = String(currentDate.getDate()).padStart(2, '0');
+                const compStr = `${yyyy}-${mm}-${dd}`;
+
                 companies.forEach(comp => {
                     if (comp.esDeadline && !comp.esDone) {
-                        const d = new Date(comp.esDeadline);
-                        if (d.toDateString() === currentDate.toDateString()) dayEvents.push({ text: `・${comp.name}：ES提出期限`, status: comp.status });
+                        if (comp.esDeadline.startsWith(compStr)) dayEvents.push({ text: `🎀 ES提出：${comp.name}`, status: comp.status });
                     }
                     if (comp.interviewDate) {
-                        const d = new Date(comp.interviewDate);
-                        if (d.toDateString() === currentDate.toDateString()) {
+                        if (comp.interviewDate.startsWith(compStr)) {
                             const typeStr = comp.nextDateType ? comp.nextDateType : '予定';
-                            dayEvents.push({ text: `・${comp.name}：${typeStr}`, status: comp.status });
+                            dayEvents.push({ text: `🐾 ${typeStr}：${comp.name}`, status: comp.status });
                         }
                     }
                 });
@@ -676,7 +854,7 @@
                     const clickInfo = dayEvents.map(e => e.text).join('\n');
                     const dot = document.createElement('span');
                     dot.className = `cal-dot ${getDotColorClass(dayEvents[0].status || '未エントリー')}`;
-                    dot.setAttribute('onclick', `showCalendarDetail(\`${clickInfo}\`)`);
+                    dot.setAttribute('onclick', `showCalendarPopup(event, \`${clickInfo}\`)`);
                     dotsContainer.appendChild(dot);
                 }
                 cell.appendChild(dotsContainer);
@@ -686,50 +864,59 @@
 
         function getStatusColorClass(status) {
             switch(status) {
-                case '未エントリー': return 'status-gray';
-                case '説明会': return 'status-lightblue';
-                case 'ES作成中': return 'status-orange';
-                case 'ES提出済み': return 'status-yellow';
-                case 'テスト': return 'status-pink';
-                case 'GD': return 'status-purple';
+                case '未エントリー':
+                case '説明会':
+                case 'その他': return 'status-white';
+                case 'ES作成中':
+                case 'ES提出済み': return 'status-pink';
+                case 'テスト':
+                case 'GD':
                 case '一次面接':
-                case '二次面接': return 'status-red';
-                case '結果待ち': return 'status-blue';
-                case '内定': return 'status-green';
-                case '不合格': return 'status-darkgray';
-                default: return 'status-gray';
+                case '二次面接':
+                case '最終面接': return 'status-yellow';
+                case 'インターン':
+                case '結果待ち': return 'status-green';
+                case '内定': return 'status-purple';
+                case '不合格': return 'status-gray';
+                default: return 'status-white';
             }
         }
 
         function getDotColorClass(status) {
             switch(status) {
-                case '未エントリー': return 'dot-gray';
-                case '説明会': return 'dot-lightblue';
-                case 'ES作成中': return 'dot-orange';
-                case 'ES提出済み': return 'dot-yellow';
-                case 'テスト': return 'dot-pink';
-                case 'GD': return 'dot-purple';
+                case '未エントリー':
+                case '説明会':
+                case 'その他': return 'dot-white';
+                case 'ES作成中':
+                case 'ES提出済み': return 'dot-pink';
+                case 'テスト':
+                case 'GD':
                 case '一次面接':
-                case '二次面接': return 'dot-red';
-                case '結果待ち': return 'dot-blue';
-                case '内定': return 'dot-green';
-                case '不合格': return 'dot-darkgray';
-                default: return 'dot-gray';
+                case '二次面接':
+                case '最終面接': return 'dot-yellow';
+                case 'インターン':
+                case '結果待ち': return 'dot-green';
+                case '内定': return 'dot-purple';
+                case '不合格': return 'dot-gray';
+                default: return 'dot-white';
             }
         }
 
         document.getElementById('companyForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
+            const esFinal = buildDateTimeString('esDeadlineDate', 'esHasTime', 'esHour', 'esMin');
+            const intFinal = buildDateTimeString('interviewDateDate', 'interviewHasTime', 'interviewHour', 'interviewMin');
+
             const companyData = {
                 name: document.getElementById('compName').value,
                 hp: document.getElementById('compHp').value,
                 mypageUrl: document.getElementById('mypageUrl').value,
                 mypageId: document.getElementById('mypageId').value,
-                esDeadline: document.getElementById('esDeadline').value,
+                esDeadline: esFinal,
                 esDone: false,
                 nextDateType: document.getElementById('nextDateType').value,
-                interviewDate: document.getElementById('interviewDate').value,
+                interviewDate: intFinal,
                 status: document.getElementById('selectionStatus').value,
                 otherStatus: document.getElementById('otherStatusName').value,
                 memo: document.getElementById('memo').value
@@ -738,6 +925,8 @@
             companies.push(companyData);
             renderApp(); 
             document.getElementById('companyForm').reset();
+            document.getElementById('esTimeContainer').style.display = "none";
+            document.getElementById('interviewTimeContainer').style.display = "none";
             document.getElementById('otherStatusGroup').style.display = "none";
             saveToGoogleCloud();
         });
