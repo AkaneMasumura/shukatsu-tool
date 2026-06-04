@@ -767,11 +767,15 @@
             const content = document.getElementById('calendarPopupContent');
             content.innerHTML = info.replace(/\n/g, '<br>');
             
-            // 押されたドットの絶対座標を取得して、すぐ横に表示する
-            const rect = e.target.getBoundingClientRect();
             popup.style.display = 'block';
-            popup.style.top = `${rect.top + window.scrollY + 15}px`;
-            popup.style.left = `${rect.left + window.scrollX - 10}px`;
+            
+            const rect = e.target.getBoundingClientRect();
+            
+            const topPosition = rect.top + window.scrollY - popup.offsetHeight - 8;
+            const leftPosition = rect.left + window.scrollX - (popup.offsetWidth / 2) + (rect.width / 2);
+            
+            popup.style.top = `${topPosition}px`;
+            popup.style.left = `${leftPosition}px`;
         }
 
         function closeCalendarPopup() {
